@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 23:46:27 by lfrasson          #+#    #+#              #
-#    Updated: 2021/08/11 20:24:33 by lfrasson         ###   ########.fr        #
+#    Updated: 2021/08/27 17:50:36 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,17 +17,21 @@ CFLAGS := -Wall -Wextra -Werror
 CFLAGS += -g
 #CFLAGS += -fsanitize=address
 
+INCLUDEDIR := ./includes/
+
 SRCDIR := ./srcs/
-SRCS := main.c
+SRCS := main.c\
+		parser.c\
+		utils.c
 
 VPATH := $(SRCDIR)\
-		 $(SRCDIR)parse
+		 $(SRCDIR)parser
 
 OBJDIR := ./objs/
 OBJS := $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
 
 $(OBJDIR)%.o:	%.c
-	$(CC) $(CFLAGS) -I$(SRCDIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDEDIR) -c $< -o $@
 
 all:	$(NAME)
 
