@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 20:09:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/28 17:56:58 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/08/28 21:39:46 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,32 @@ static int	parse_number(char *str_number, int *number)
 
 int	parse_arguments(char **argv, t_param *param)
 {
-	if (!parse_number(*argv++, &param->number_of_philosophers))
-		return (-1);
-	if (parse_number(*argv++, &param->time.to_die))
-		return (-1);
-	if (parse_number(*argv++, &param->time.to_eat))
-		return (-1);
-	if (parse_number(*argv++, &param->time.to_sleep))
-		return (-1);
+	if (!parse_number(*argv++, &param->number_of_philo))
+		return (FAIL);
+	if (!parse_number(*argv++, &param->time.to_die))
+		return (FAIL);
+	if (!parse_number(*argv++, &param->time.to_eat))
+		return (FAIL);
+	if (!parse_number(*argv++, &param->time.to_sleep))
+		return (FAIL);
 	param->must_eat = 0;
-	if (!argv)
-		return (0);
+	if (!*argv)
+		return (SUCCESS);
 	if (!parse_number(*argv, &param->must_eat))
-		return (-1);
-	return (0);
+		return (FAIL);
+	return (SUCCESS);
 }
 
 static int	check_number_of_arguments(int argc)
 {
 	if (argc == 6)
-		return (0);
+		return (SUCCESS);
 	if (argc == 5)
-		return (0);
+		return (SUCCESS);
 	printf("Incorrect number of arguments\n");
 	printf("Usage: philo number_of_philosophers time_to_die time_to_eat ");
 	printf("time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
-	return (-1);
+	return (FAIL);
 }
 
 int	parse_input(int argc, char **argv, t_param *param)
@@ -77,13 +77,13 @@ int	parse_input(int argc, char **argv, t_param *param)
 	int	status;
 
 	status = check_number_of_arguments(argc);
-	if (status)
+	if (status == FAIL)
 		return (status);
 	status = parse_arguments(argv + 1, param);
-	if (status)
+	if (status == FAIL)
 	{
 		printf("xxxxx\n");
 		return (status);
 	}
-	return (0);
+	return (SUCCESS);
 }
