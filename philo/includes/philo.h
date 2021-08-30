@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/28 21:49:36 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/08/30 09:12:49 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define SUCCESS	0
 # define FAIL		-1
 
+typedef pthread_mutex_t t_mutex;
+
 typedef struct s_time
 {
 	int	to_die;
@@ -33,8 +35,8 @@ typedef struct s_time
 
 typedef struct s_hand
 {
-	pthread_mutex_t	*left;
-	pthread_mutex_t	*right;
+	t_mutex	*left;
+	t_mutex *right;
 }	t_hand;
 
 typedef struct s_philo
@@ -45,11 +47,11 @@ typedef struct s_philo
 
 typedef struct s_param
 {
-	int				number_of_philo;
-	int				must_eat;
-	t_time			time;
-	t_philo			*philos;
-	pthread_mutex_t	*forks;
+	int		number_of_philo;
+	int		must_eat;
+	t_time	time;
+	t_philo	*philos;
+	t_mutex	**forks;
 }	t_param;
 
 int	parse_input(int argc, char **argv, t_param *param);

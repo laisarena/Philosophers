@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 23:46:27 by lfrasson          #+#    #+#              #
-#    Updated: 2021/08/27 17:50:36 by lfrasson         ###   ########.fr        #
+#    Updated: 2021/08/29 18:53:17 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME := philo
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 CFLAGS += -g
-#CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=address
 
 INCLUDEDIR := ./includes/
 
