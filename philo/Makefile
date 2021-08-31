@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 23:46:27 by lfrasson          #+#    #+#              #
-#    Updated: 2021/08/29 18:53:17 by lfrasson         ###   ########.fr        #
+#    Updated: 2021/08/30 21:04:23 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ INCLUDEDIR := ./includes/
 SRCDIR := ./srcs/
 SRCS := main.c\
 		parser.c\
+		init.c\
+		create_philos.c\
 		utils.c
 
 VPATH := $(SRCDIR)\

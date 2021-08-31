@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/30 11:51:26 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/08/30 21:04:53 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ typedef struct s_param
 }	t_param;
 
 int	parse_input(int argc, char **argv, t_param *param);
+int	initialize_structures(t_param *param);
+int	create_philos(t_param *param);
 
 #endif
