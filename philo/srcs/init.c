@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:56:31 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/30 21:03:41 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/08/31 11:29:33 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,22 @@ static void	initialize_forks(t_mutex **forks)
 	}
 }
 
-static int	create_forks(t_param *param)
+static int	create_forks(t_mutex ***forks, int size)
 {
-	int	size;
-
-	size = param->number_of_philo;
-	param->forks = malloc(sizeof(t_mutex *) * (size + 1));
-	if (!param->forks)
+	*forks = malloc(sizeof(t_mutex *) * (size + 1));
+	if (!*forks)
 		return (FAIL);
-	param->forks[size] = NULL;
-	initialize_forks(param->forks);
+	(*forks)[size] = NULL;
+	initialize_forks(*forks);
 	return (SUCCESS);
 }
 
-int	initialize_structures(t_param *param)
+int	initialize_structures(t_philo ***philos, t_mutex ***forks,
+		t_param *param, int size)
 {
-	if (create_forks(param) == FAIL)
+	if (create_forks(forks, size) == FAIL)
 		return (FAIL);
-	if (create_philos(param) == FAIL)
+	if (create_philos(philos, *forks, param, size) == FAIL)
 		return (FAIL);
 	return (SUCCESS);
 }

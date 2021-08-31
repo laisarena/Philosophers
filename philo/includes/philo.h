@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/30 21:04:53 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/08/31 20:40:50 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define FAIL		-1
 
 typedef pthread_mutex_t	t_mutex;
+typedef pthread_t		t_pthread;
 
 typedef struct s_time
 {
@@ -32,6 +33,13 @@ typedef struct s_time
 	int	to_eat;
 	int	to_sleep;
 }	t_time;
+
+typedef struct s_param
+{
+	int		number_of_philo;
+	int		must_eat;
+	t_time	time;
+}	t_param;
 
 typedef struct s_hand
 {
@@ -41,21 +49,16 @@ typedef struct s_hand
 
 typedef struct s_philo
 {
-	int		index;
-	t_hand	hand;
+	int			index;
+	t_hand		hand;
+	t_pthread	thread;
+	t_param		*param;
 }	t_philo;
 
-typedef struct s_param
-{
-	int		number_of_philo;
-	int		must_eat;
-	t_time	time;
-	t_philo	**philos;
-	t_mutex	**forks;
-}	t_param;
-
 int	parse_input(int argc, char **argv, t_param *param);
-int	initialize_structures(t_param *param);
-int	create_philos(t_param *param);
+int	initialize_structures(t_philo ***philos, t_mutex ***forks,
+		t_param *param, int size);
+int	create_philos(t_philo ***philos, t_mutex **forks, t_param *param, int size);
+int	start_routines(t_philo **philos);
 
 #endif

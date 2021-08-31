@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:01:46 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/30 21:14:08 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/08/31 11:29:19 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,27 @@ static void	set_hands(t_philo *philo, t_mutex **forks)
 		philo->hand.right = forks[0];
 }
 
-static void	initialize_philos(t_param *param)
+static void	initialize_philos(t_philo **philos, t_mutex **forks, t_param *param)
 {
 	int		index;
-	int		size;
-	t_philo	*philo;
 
 	index = 0;
-	size = param->number_of_philo;
-	while (param->philos[index])
+	while (philos[index])
 	{
-		param->philos[index] = malloc(sizeof(t_philo));
-		philo = param->philos[index];
-		philo->index = index + 1;
-		set_hands(philo, param->forks);
+		philos[index] = malloc(sizeof(t_philo));
+		philos[index]->index = index + 1;
+		philos[index]->param = param;
+		set_hands(philos[index], forks);
 		index++;
 	}
 }
 
-int	create_philos(t_param *param)
+int	create_philos(t_philo ***philos, t_mutex **forks, t_param *param, int size)
 {
-	int	size;
-
-	size = param->number_of_philo;
-	param->philos = malloc(sizeof(t_philo *) * (size + 1));
-	if (!param->philos)
+	*philos = malloc(sizeof(t_philo *) * (size + 1));
+	if (!*philos)
 		return (FAIL);
-	param->philos[size] = NULL;
-	initialize_philos(param);
+	(*philos)[size] = NULL;
+	initialize_philos(*philos, forks, param);
 	return (SUCCESS);
 }
