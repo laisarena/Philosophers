@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/31 20:40:50 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/08/31 20:59:09 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include <pthread.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include "utils.h"
 
 # define TRUE		1
