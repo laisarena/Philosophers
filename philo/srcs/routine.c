@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:14:45 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/01 14:23:25 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/03 10:33:27 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 int	eating(t_philo *philo)
 {
 	(void)philo;
-	printf("eat %d\n", philo->index);
+	printf("timestamp_in_ms %d is eating\n", philo->index);
+	sleeep_ms(philo->param->time.to_eat);
 	return (TRUE);
 }
 
 int	thinking(t_philo *philo)
 {
 	(void)philo;
-	printf("think %d\n", philo->index);
+	printf("timestamp_in_ms %d is thinking\n", philo->index);
 	return (TRUE);
 }
 
 int	sleeping(t_philo *philo)
 {
 	(void)philo;
-	printf("sleep %d\n", philo->index);
+	printf("timestamp_in_ms %d is sleeping\n", philo->index);
+	sleeep_ms(philo->param->time.to_sleep);
 	return (TRUE);
 }
 
@@ -37,8 +39,8 @@ void	*routine(void *arg)
 {
 	t_philo	*philo;
 
+	philo = NULL;
 	philo = (t_philo *)arg;
-	printf("%d\n", philo->index);
 	while (eating(philo) && sleeping(philo) && thinking(philo))
 		continue ;
 	return (SUCCESS);
@@ -71,7 +73,6 @@ int	join_philo_threads(t_philo **philo)
 
 int	start_routines(t_philo **philos)
 {
-	(void)philos;
 	if (create_philo_threads(philos))
 		return (FAIL);
 	if (join_philo_threads(philos))

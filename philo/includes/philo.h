@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/31 20:59:09 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/03 10:36:22 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 # include "utils.h"
 
 # define TRUE		1
@@ -30,9 +31,10 @@ typedef pthread_t		t_pthread;
 
 typedef struct s_time
 {
-	int	to_die;
-	int	to_eat;
-	int	to_sleep;
+	long int	init;
+	int			to_die;
+	int			to_eat;
+	int			to_sleep;
 }	t_time;
 
 typedef struct s_param
@@ -56,10 +58,12 @@ typedef struct s_philo
 	t_param		*param;
 }	t_philo;
 
-int	parse_input(int argc, char **argv, t_param *param);
-int	initialize_structures(t_philo ***philos, t_mutex ***forks,
-		t_param *param, int size);
-int	create_philos(t_philo ***philos, t_mutex **forks, t_param *param, int size);
-int	start_routines(t_philo **philos);
+int		parse_input(int argc, char **argv, t_param *param);
+int		initialize_structures(t_philo ***philos, t_mutex ***forks,
+			t_param *param, int size);
+int		create_philos(t_philo ***philos, t_mutex **forks,
+			t_param *param, int size);
+int		start_routines(t_philo **philos);
+void	sleeep_ms(int time);
 
 #endif
