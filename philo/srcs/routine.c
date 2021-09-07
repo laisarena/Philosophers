@@ -6,25 +6,53 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:14:45 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/07 14:55:57 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/07 16:18:28 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	take_forks(t_philo *philo)
+{
+	t_mutex	*first;
+	t_mutex	*second;
+
+	first = philo->hand.left;
+	second = philo->hand.right;
+	if ((philo->index % 2 == 0))
+	{
+		first = philo->hand.right;
+		second = philo->hand.left;
+	}
+	pthread_mutex_lock(first);
+	printf("%d %d has taken a fork\n",
+		delta_time(philo->param->time.init),
+		philo->index);
+	pthread_mutex_lock(second);
+	printf("%d %d has taken a fork\n",
+		delta_time(philo->param->time.init),
+		philo->index);
+}
+
+void	drop_forks(t_philo *philo)
+{
+	pthread_mutex_unlock(philo->hand.left);
+	pthread_mutex_unlock(philo->hand.right);
+}
+
 int	eating(t_philo *philo)
 {
-	(void)philo;
+	take_forks(philo);
 	printf("%d %d is eating\n",
 		delta_time(philo->param->time.init),
 		philo->index);
 	sleeep_ms(philo->param->time.to_eat);
+	drop_forks(philo);
 	return (TRUE);
 }
 
 int	thinking(t_philo *philo)
 {
-	(void)philo;
 	printf("%d %d is thinking\n",
 		delta_time(philo->param->time.init),
 		philo->index);
@@ -33,7 +61,6 @@ int	thinking(t_philo *philo)
 
 int	sleeping(t_philo *philo)
 {
-	(void)philo;
 	printf("%d %d is sleeping\n",
 		delta_time(philo->param->time.init),
 		philo->index);
