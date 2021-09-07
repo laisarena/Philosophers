@@ -6,18 +6,28 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 20:24:22 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/02 21:33:28 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/07 14:55:21 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long int	get_time(void)
+t_microsec	get_time(void)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec);
+	return (time.tv_sec * 1000000 + time.tv_usec);
+}
+
+int	delta_time(t_microsec init)
+{
+	t_microsec	now;
+	t_microsec	delta;
+
+	now = get_time();
+	delta = now - init;
+	return (delta / 1000);
 }
 
 void	sleeep_ms(int time)

@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:25:04 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/31 20:52:54 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/03 11:23:10 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	main(int argc, char **argv)
 	if (status == FAIL)
 		return (status);
 	initialize_structures(&philos, &forks, &param, param.number_of_philo);
-	start_routines(philos);
+	start_routines(philos, &param.time.init);
 	free_structures(philos, forks);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:14:45 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/03 10:33:27 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/07 14:55:57 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	eating(t_philo *philo)
 {
 	(void)philo;
-	printf("timestamp_in_ms %d is eating\n", philo->index);
+	printf("%d %d is eating\n",
+		delta_time(philo->param->time.init),
+		philo->index);
 	sleeep_ms(philo->param->time.to_eat);
 	return (TRUE);
 }
@@ -23,14 +25,18 @@ int	eating(t_philo *philo)
 int	thinking(t_philo *philo)
 {
 	(void)philo;
-	printf("timestamp_in_ms %d is thinking\n", philo->index);
+	printf("%d %d is thinking\n",
+		delta_time(philo->param->time.init),
+		philo->index);
 	return (TRUE);
 }
 
 int	sleeping(t_philo *philo)
 {
 	(void)philo;
-	printf("timestamp_in_ms %d is sleeping\n", philo->index);
+	printf("%d %d is sleeping\n",
+		delta_time(philo->param->time.init),
+		philo->index);
 	sleeep_ms(philo->param->time.to_sleep);
 	return (TRUE);
 }
@@ -71,8 +77,9 @@ int	join_philo_threads(t_philo **philo)
 	return (SUCCESS);
 }
 
-int	start_routines(t_philo **philos)
+int	start_routines(t_philo **philos, t_microsec *init)
 {
+	*init = get_time();
 	if (create_philo_threads(philos))
 		return (FAIL);
 	if (join_philo_threads(philos))

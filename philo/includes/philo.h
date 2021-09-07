@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/03 10:36:22 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/07 14:52:14 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@
 # define SUCCESS	0
 # define FAIL		-1
 
-typedef pthread_mutex_t	t_mutex;
-typedef pthread_t		t_pthread;
+typedef pthread_mutex_t			t_mutex;
+typedef pthread_t				t_pthread;
+typedef unsigned long long int	t_microsec;
 
 typedef struct s_time
 {
-	long int	init;
+	t_microsec	init;
 	int			to_die;
 	int			to_eat;
 	int			to_sleep;
@@ -58,12 +59,14 @@ typedef struct s_philo
 	t_param		*param;
 }	t_philo;
 
-int		parse_input(int argc, char **argv, t_param *param);
-int		initialize_structures(t_philo ***philos, t_mutex ***forks,
-			t_param *param, int size);
-int		create_philos(t_philo ***philos, t_mutex **forks,
-			t_param *param, int size);
-int		start_routines(t_philo **philos);
-void	sleeep_ms(int time);
+int			parse_input(int argc, char **argv, t_param *param);
+int			initialize_structures(t_philo ***philos, t_mutex ***forks,
+				t_param *param, int size);
+int			create_philos(t_philo ***philos, t_mutex **forks,
+				t_param *param, int size);
+int			start_routines(t_philo **philos, t_microsec *init);
+void		sleeep_ms(int time);
+t_microsec	get_time(void);
+int			delta_time(t_microsec init);
 
 #endif
