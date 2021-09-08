@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:14:45 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/08 14:59:00 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 15:48:10 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print(char *message, t_philo *philo)
 	if (philo->param->died.index != 0)
 		return ;
 	printf("%d %d %s",
-			delta_time(philo->param->time.init),
+			delta_time(philo->param->time.init, FALSE),
 			philo->index,
 			message);
 }
@@ -81,15 +81,14 @@ void	*death_control(void	*arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (delta_time(philo->last_meal) < philo->param->time.to_die)
+	while (delta_time(philo->last_meal, FALSE) < philo->param->time.to_die
+			&& philo->param->died.index == 0)
 		continue ;
 	if (philo->param->died.index == 0)
 	{
 		pthread_mutex_lock(&philo->param->died.mutex);
+		philo->param->died.time = get_time();
 		philo->param->died.index = philo->index;
-		printf("%d %d died\n",
-			delta_time(philo->param->time.init),
-			philo->index);
 		pthread_mutex_unlock(&philo->param->died.mutex);
 		pthread_mutex_unlock(philo->hand.left);
 	}

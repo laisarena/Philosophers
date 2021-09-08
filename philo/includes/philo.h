@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/08 09:51:10 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 16:03:18 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define FALSE		0
 # define SUCCESS	0
 # define FAIL		-1
+# define DELAY		1000
 
 typedef pthread_mutex_t			t_mutex;
 typedef pthread_t				t_pthread;
@@ -32,8 +33,9 @@ typedef unsigned long long int	t_microsec;
 
 typedef struct s_died
 {
-	t_mutex	mutex;
-	int		index;
+	t_mutex		mutex;
+	int			index;
+	t_microsec	time;
 }	t_died;
 
 typedef struct s_time
@@ -75,6 +77,6 @@ int			create_philos(t_philo ***philos, t_mutex **forks,
 int			start_routines(t_philo **philos, t_microsec *init);
 void		sleeep_ms(int time);
 t_microsec	get_time(void);
-int			delta_time(t_microsec init);
+int			delta_time(t_microsec ini, t_microsec now);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:25:04 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/07 18:34:43 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 15:29:13 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ int	main(int argc, char **argv)
 		return (status);
 	initialize_structures(&philos, &forks, &param, param.number_of_philo);
 	start_routines(philos, &param.time.init);
+	if (param.died.index != 0)
+	{
+		printf("%d %d died\n",
+			delta_time(param.time.init, param.died.time),
+			param.died.index);
+	}
 	free_structures(philos, forks);
 	return (SUCCESS);
 }
