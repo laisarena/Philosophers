@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 11:56:31 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/31 11:29:33 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 09:51:24 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int	initialize_structures(t_philo ***philos, t_mutex ***forks,
 		return (FAIL);
 	if (create_philos(philos, *forks, param, size) == FAIL)
 		return (FAIL);
+	pthread_mutex_init(&param->died.mutex, NULL);
 	return (SUCCESS);
 }

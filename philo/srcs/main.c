@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:25:04 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/03 11:23:10 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/07 18:34:43 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,18 @@ void	free_double_pointer(void **pointer)
 	free_null(pointer);
 }
 
+void	destroy_mutex(t_mutex **forks)
+{
+	while (*forks)
+	{
+		pthread_mutex_destroy(*forks);
+		forks++;
+	}
+}
+
 void	free_structures(t_philo	**philos, t_mutex **forks)
 {
+	destroy_mutex(forks);
 	free_double_pointer((void **)philos);
 	free_double_pointer((void **)forks);
 }

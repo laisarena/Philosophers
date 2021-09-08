@@ -6,12 +6,13 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 20:24:22 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/07 14:55:21 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:45:08 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+#define	DELAY 0
 t_microsec	get_time(void)
 {
 	struct timeval	time;
@@ -32,5 +33,8 @@ int	delta_time(t_microsec init)
 
 void	sleeep_ms(int time)
 {
-	usleep(time * 1000);
+	int	x;
+
+	x = (200000 - DELAY) / 200;
+	usleep(time * x);
 }

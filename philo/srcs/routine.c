@@ -6,11 +6,21 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:14:45 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/07 16:18:28 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 11:42:46 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	print(char *message, t_philo *philo)
+{
+	if (philo->param->died.index != 0)
+		return ;
+	printf("%d %d %s",
+			delta_time(philo->param->time.init),
+			philo->index,
+			message);
+}
 
 void	take_forks(t_philo *philo)
 {
@@ -25,13 +35,9 @@ void	take_forks(t_philo *philo)
 		second = philo->hand.left;
 	}
 	pthread_mutex_lock(first);
-	printf("%d %d has taken a fork\n",
-		delta_time(philo->param->time.init),
-		philo->index);
+	print("has taken a fork\n", philo);
 	pthread_mutex_lock(second);
-	printf("%d %d has taken a fork\n",
-		delta_time(philo->param->time.init),
-		philo->index);
+	print("has taken a fork\n", philo);
 }
 
 void	drop_forks(t_philo *philo)
@@ -42,10 +48,11 @@ void	drop_forks(t_philo *philo)
 
 int	eating(t_philo *philo)
 {
+	if (philo->param->died.index != 0)
+		return (FALSE);
 	take_forks(philo);
-	printf("%d %d is eating\n",
-		delta_time(philo->param->time.init),
-		philo->index);
+	philo->last_meal = get_time();
+	print("is eating\n", philo);
 	sleeep_ms(philo->param->time.to_eat);
 	drop_forks(philo);
 	return (TRUE);
@@ -53,19 +60,46 @@ int	eating(t_philo *philo)
 
 int	thinking(t_philo *philo)
 {
-	printf("%d %d is thinking\n",
-		delta_time(philo->param->time.init),
-		philo->index);
+	if (philo->param->died.index != 0)
+		return (FALSE);
+	print("is thinking\n", philo);
 	return (TRUE);
 }
 
 int	sleeping(t_philo *philo)
 {
-	printf("%d %d is sleeping\n",
-		delta_time(philo->param->time.init),
-		philo->index);
+	if (philo->param->died.index != 0)
+		return (FALSE);
+	print("is sleeping\n", philo);
 	sleeep_ms(philo->param->time.to_sleep);
 	return (TRUE);
+}
+
+void	*death_control(void	*arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	while (delta_time(philo->last_meal) < philo->param->time.to_die)
+		continue ;
+	if (philo->param->died.index == 0)
+	{
+		pthread_mutex_lock(&philo->param->died.mutex);
+		philo->param->died.index = philo->index;
+		printf("%d %d died\n",
+			delta_time(philo->param->time.init),
+			philo->index);
+		pthread_mutex_unlock(&philo->param->died.mutex);
+	}
+	return (SUCCESS);
+}
+
+void	create_control_thread(t_philo *philo)
+{
+	t_pthread	thread;
+
+	pthread_create(&thread, NULL, death_control, philo);
+	pthread_detach(thread);
 }
 
 void	*routine(void *arg)
@@ -74,6 +108,12 @@ void	*routine(void *arg)
 
 	philo = NULL;
 	philo = (t_philo *)arg;
+	philo->last_meal = philo->param->time.init;
+	create_control_thread(philo);
+	if (philo->index % 2 == 0)
+		sleeep_ms(10);
+	//if (philo->index == philo->param->number_of_philo)
+	//	sleeep_ms(20);
 	while (eating(philo) && sleeping(philo) && thinking(philo))
 		continue ;
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/07 14:52:14 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 09:51:10 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ typedef pthread_mutex_t			t_mutex;
 typedef pthread_t				t_pthread;
 typedef unsigned long long int	t_microsec;
 
+typedef struct s_died
+{
+	t_mutex	mutex;
+	int		index;
+}	t_died;
+
 typedef struct s_time
 {
 	t_microsec	init;
@@ -42,6 +48,7 @@ typedef struct s_param
 {
 	int		number_of_philo;
 	int		must_eat;
+	t_died	died;
 	t_time	time;
 }	t_param;
 
@@ -54,6 +61,7 @@ typedef struct s_hand
 typedef struct s_philo
 {
 	int			index;
+	t_microsec	last_meal;
 	t_hand		hand;
 	t_pthread	thread;
 	t_param		*param;
