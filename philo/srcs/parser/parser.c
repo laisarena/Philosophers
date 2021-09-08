@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 20:09:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/28 21:39:46 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 13:51:40 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	parse_number(char *str_number, int *number)
 		return (FALSE);
 	lnumber = ft_atol(str_number);
 	*number = (int)lnumber;
+	if (lnumber < 0)
+		return (FALSE);
 	return (is_integer(lnumber));
 }
 

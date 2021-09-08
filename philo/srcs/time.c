@@ -6,13 +6,13 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 20:24:22 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/08 11:45:08 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 14:58:00 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-#define	DELAY 0
+#define	DELAY 2560
 t_microsec	get_time(void)
 {
 	struct timeval	time;

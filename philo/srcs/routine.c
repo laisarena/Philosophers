@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:14:45 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/08 11:42:46 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/08 14:59:00 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	take_forks(t_philo *philo)
 
 	first = philo->hand.left;
 	second = philo->hand.right;
-	if ((philo->index % 2 == 0))
+	/*if ((philo->index % 2 == 0))
 	{
 		first = philo->hand.right;
 		second = philo->hand.left;
-	}
+	}*/
 	pthread_mutex_lock(first);
 	print("has taken a fork\n", philo);
 	pthread_mutex_lock(second);
@@ -51,6 +51,7 @@ int	eating(t_philo *philo)
 	if (philo->param->died.index != 0)
 		return (FALSE);
 	take_forks(philo);
+
 	philo->last_meal = get_time();
 	print("is eating\n", philo);
 	sleeep_ms(philo->param->time.to_eat);
@@ -90,6 +91,7 @@ void	*death_control(void	*arg)
 			delta_time(philo->param->time.init),
 			philo->index);
 		pthread_mutex_unlock(&philo->param->died.mutex);
+		pthread_mutex_unlock(philo->hand.left);
 	}
 	return (SUCCESS);
 }
@@ -106,12 +108,11 @@ void	*routine(void *arg)
 {
 	t_philo	*philo;
 
-	philo = NULL;
 	philo = (t_philo *)arg;
 	philo->last_meal = philo->param->time.init;
 	create_control_thread(philo);
 	if (philo->index % 2 == 0)
-		sleeep_ms(10);
+		sleeep_ms(5);
 	//if (philo->index == philo->param->number_of_philo)
 	//	sleeep_ms(20);
 	while (eating(philo) && sleeping(philo) && thinking(philo))
