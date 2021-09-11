@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:01:46 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/31 11:29:19 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/11 12:13:28 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	initialize_philos(t_philo **philos, t_mutex **forks, t_param *param)
 	{
 		philos[index] = malloc(sizeof(t_philo));
 		philos[index]->index = index + 1;
+		philos[index]->meal_qtd = 0;
 		philos[index]->param = param;
 		set_hands(philos[index], forks);
 		index++;

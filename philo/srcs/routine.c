@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:14:45 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/10 22:31:50 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/11 12:06:30 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print(char *message, t_philo *philo)
 {
-	if (philo->param->died.index != 0)
+	if (someone_died(philo->param) || already_ate_enough(philo))
 		return ;
 	printf("%d %d %s",
 		delta_time(philo->param->time.init, FALSE),
@@ -24,7 +24,7 @@ void	print(char *message, t_philo *philo)
 
 static int	thinking(t_philo *philo)
 {
-	if (philo->param->died.index != 0)
+	if (someone_died(philo->param) || already_ate_enough(philo))
 		return (FALSE);
 	print("is thinking\n", philo);
 	return (TRUE);
@@ -32,7 +32,7 @@ static int	thinking(t_philo *philo)
 
 static int	sleeping(t_philo *philo)
 {
-	if (philo->param->died.index != 0)
+	if (someone_died(philo->param) || already_ate_enough(philo))
 		return (FALSE);
 	print("is sleeping\n", philo);
 	sleeep_ms(philo->param->time.to_sleep);
