@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 21:14:45 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/11 12:06:30 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/11 16:47:46 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	philo->last_meal = philo->param->time.init;
-	create_control_thread(philo);
 	if (philo->index % 2 == 0)
 		sleeep_ms(5);
+	create_control_thread(philo);
 	while (eating(philo) && sleeping(philo) && thinking(philo))
 		continue ;
 	return (SUCCESS);
