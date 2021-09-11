@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/11 12:20:37 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/11 16:01:36 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PHILO_H
 
 # include <stdio.h>
-# include <limits.h>
 # include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>

@@ -6,9 +6,30 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 20:15:06 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/08/25 20:20:26 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/11 16:00:10 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "utils.h"
+
+int	is_string_number(char *string)
+{
+	if (*string == '-')
+		string++;
+	while (*string)
+		if (!ft_isdigit(*string++))
+			return (FALSE);
+	return (TRUE);
+}
+
+int	is_integer(long number)
+{
+	if (number > INT_MAX)
+		return (FALSE);
+	if (number < INT_MIN)
+		return (FALSE);
+	return (TRUE);
+}
 
 int	ft_isdigit(int c)
 {
@@ -25,8 +46,8 @@ int	ft_isspace(int c)
 		|| c == '\f'
 		|| c == '\r'
 		|| c == ' ')
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
 
 int	ft_atol(const char *str)
