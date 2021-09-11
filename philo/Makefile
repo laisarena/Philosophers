@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 23:46:27 by lfrasson          #+#    #+#              #
-#    Updated: 2021/09/02 21:30:14 by lfrasson         ###   ########.fr        #
+#    Updated: 2021/09/10 22:23:20 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ SRCS := main.c\
 		create_philos.c\
 		routine.c\
 		time.c\
+		free_resources.c\
+		create_threads.c\
+		eating.c\
+		death_control.c\
 		utils.c
 
 VPATH := $(SRCDIR)\

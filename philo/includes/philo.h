@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/08 16:03:18 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/10 22:28:23 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_hand
 typedef struct s_philo
 {
 	int			index;
+	int			qtd;
 	t_microsec	last_meal;
 	t_hand		hand;
 	t_pthread	thread;
@@ -75,8 +76,13 @@ int			initialize_structures(t_philo ***philos, t_mutex ***forks,
 int			create_philos(t_philo ***philos, t_mutex **forks,
 				t_param *param, int size);
 int			start_routines(t_philo **philos, t_microsec *init);
+int			eating(t_philo *philo);
+void		create_control_thread(t_philo *philo);
+void		*routine(void *arg);
+void		print(char *message, t_philo *philo);
 void		sleeep_ms(int time);
 t_microsec	get_time(void);
 int			delta_time(t_microsec ini, t_microsec now);
+void		free_structures(t_philo	**philos, t_mutex **forks);
 
 #endif

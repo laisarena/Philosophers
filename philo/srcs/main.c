@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 20:25:04 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/08 15:29:13 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/09 12:40:06 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,13 @@ void	ft_bzero(void *s, size_t n)
 		*ptr++ = 0;
 }
 
-void	free_null(void *pointer)
+static void	print_death(t_param param)
 {
-	if (pointer)
-		free(pointer);
-	pointer = NULL;
-}
-
-void	free_double_pointer(void **pointer)
-{
-	int		i;
-	void	**next;
-
-	i = 0;
-	if (!pointer)
+	if (param.died.index == 0)
 		return ;
-	next = pointer;
-	while (*next)
-	{
-		free_null(*next);
-		next++;
-	}
-	free_null(pointer);
-}
-
-void	destroy_mutex(t_mutex **forks)
-{
-	while (*forks)
-	{
-		pthread_mutex_destroy(*forks);
-		forks++;
-	}
-}
-
-void	free_structures(t_philo	**philos, t_mutex **forks)
-{
-	destroy_mutex(forks);
-	free_double_pointer((void **)philos);
-	free_double_pointer((void **)forks);
+	printf("%d %d died\n",
+		delta_time(param.time.init, param.died.time),
+		param.died.index);
 }
 
 int	main(int argc, char **argv)
@@ -76,12 +45,7 @@ int	main(int argc, char **argv)
 		return (status);
 	initialize_structures(&philos, &forks, &param, param.number_of_philo);
 	start_routines(philos, &param.time.init);
-	if (param.died.index != 0)
-	{
-		printf("%d %d died\n",
-			delta_time(param.time.init, param.died.time),
-			param.died.index);
-	}
+	print_death(param);
 	free_structures(philos, forks);
 	return (SUCCESS);
 }

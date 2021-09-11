@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 20:24:22 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/08 16:04:56 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/10 18:53:58 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	sleeep_ms(int time)
 {
 	int	delay_factor;
 
-	delay_factor = (200000 - DELAY) / 200;
+	delay_factor = 200000000 / (200000 + DELAY);
 	usleep(time * delay_factor);
 }
