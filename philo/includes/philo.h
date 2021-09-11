@@ -6,7 +6,7 @@
 /*   By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 18:36:41 by lfrasson          #+#    #+#             */
-/*   Updated: 2021/09/10 22:28:23 by lfrasson         ###   ########.fr       */
+/*   Updated: 2021/09/10 22:45:05 by lfrasson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@
 # define FALSE		0
 # define SUCCESS	0
 # define FAIL		-1
-# define DELAY		1000
+
+# ifndef DELAY
+#  define DELAY		1000
+# endif
 
 typedef pthread_mutex_t			t_mutex;
 typedef pthread_t				t_pthread;

@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/18 23:46:27 by lfrasson          #+#    #+#              #
-#    Updated: 2021/09/10 22:23:20 by lfrasson         ###   ########.fr        #
+#    Updated: 2021/09/11 11:13:08 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 CFLAGS += -g
 CFLAGS += -fsanitize=address
+DELAY := 1000
 
 INCLUDEDIR := ./includes/
 
@@ -39,7 +40,7 @@ OBJDIR := ./objs/
 OBJS := $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
 
 $(OBJDIR)%.o:	%.c
-	$(CC) $(CFLAGS) -I$(INCLUDEDIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDEDIR) -D DELAY=$(DELAY) -c $< -o $@
 
 all:	$(NAME)
 
@@ -59,4 +60,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+delay:
+	@python3 delay_o_meter.py
+
+.PHONY: all clean fclean re delay
